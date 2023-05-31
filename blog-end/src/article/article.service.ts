@@ -7,8 +7,10 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class ArticleService {
   constructor(private psm: PrismaService, private config: ConfigService) {}
-  create(createArticleDto: CreateArticleDto) {
-    return this.psm.article.create({ data: createArticleDto });
+  async create(createArticleDto: CreateArticleDto) {
+    return await this.psm.article.create({
+      data: createArticleDto,
+    });
   }
 
   async findAll(
@@ -38,11 +40,14 @@ export class ArticleService {
     return await this.psm.article.findUnique({ where: { id } });
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
+  async update(id: number, updateArticleDto: UpdateArticleDto) {
+    return await this.psm.article.update({
+      where: { id },
+      data: updateArticleDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
+  async remove(id: number) {
+    return await this.psm.article.delete({ where: { id } });
   }
 }

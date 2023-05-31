@@ -5,4 +5,7 @@ export class CreateArticleDto {
   title: string;
   @IsNotEmpty({ message: '内容不能为空' })
   content: string;
+
+  @IsNotEmpty({ message: '分类不能为空' })
+  categoryId: number;
 }
